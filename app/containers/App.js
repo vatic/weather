@@ -4,6 +4,8 @@ import classNames from 'classnames'
 
 import { ui_test } from '../actions/ui'
 
+import NavbarMain from '../components/header/NavbarMain'
+
 
 class App extends Component {
 
@@ -15,8 +17,8 @@ class App extends Component {
 
     return (
 
-      <div>
-        <h1>Hello Weather</h1>
+      <div id="wth_main">
+        <NavbarMain />
       </div>
 
     )
