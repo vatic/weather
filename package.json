@@ -1,9 +1,10 @@
 {
   "name": "react_weather",
   "version": "0.0.1",
-  "description": "Simple frontend weather app with openweathermap.com backend",
+  "description": "Simple SPA with openweathermap.com backend",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --progress --colors --hot --inline --content-base app/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +22,35 @@
   "bugs": {
     "url": "https://github.com/vatic/weather/issues"
   },
-  "homepage": "https://github.com/vatic/weather#readme"
+  "homepage": "https://github.com/vatic/weather#readme",
+  "engines": {
+    "node": "4.4.1"
+  },
+  "dependencies": {
+    "babel-core": "6.7.4",
+    "babel-loader": "6.2.4",
+    "babel-polyfill": "6.7.4",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.5.0",
+    "bootstrap": "3.3.6",
+    "classnames": "2.2.3",
+    "css-loader": "0.23.1",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.8.5",
+    "less": "2.6.1",
+    "less-loader": "2.2.2",
+    "lodash": "4.6.1",
+    "node-sass": "3.4.2",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
+    "react-redux": "4.4.1",
+    "redux": "3.3.1",
+    "redux-logger": "2.6.1",
+    "redux-thunk": "2.0.1",
+    "sass-loader": "3.2.0",
+    "style-loader": "0.13.0",
+    "url-loader": "0.5.7",
+    "webpack": "1.12.14",
+    "webpack-dev-server": "1.14.1"
+  }
 }
