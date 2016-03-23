@@ -27,8 +27,8 @@ class App extends Component {
             <CitySearch />
           </div>
           <div className="row weather-wrapper">
-            <CurrentWeather />
-            <ForecastWeather />
+            <CurrentWeather {...this.props} />
+            <ForecastWeather {...this.props} />
           </div>
         </div>
       </div>
