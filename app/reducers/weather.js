@@ -1,23 +1,36 @@
 import * as ActionTypes from '../actions/weather'
 
 export default function weather(state = {
-  isFetching: false,
+  isFetchingCurrent: false,
+  isFetchingForecast: false,
   currentCity: null,
-  mainWeatherValues: {}
+  mainWeatherValues: {},
+  forecast: []
 }, action) {
 
   switch (action.type) {
 
     case ActionTypes.REQUEST_CURRENT_WEATHER:
       return Object.assign({}, state, {
-        isFetching: true
+        isFetchingCurrent: true
       });
 
     case ActionTypes.RECEIVE_CURRENT_WEATHER:
       return Object.assign({}, state, {
-        isFetching: false,
+        isFetchingCurrent: false,
         currentCity: action.currentWeatherData.name,
         mainWeatherValues: action.currentWeatherData.main
+      });
+
+    case ActionTypes.REQUEST_FORECAST_WEATHER:
+      return Object.assign({}, state, {
+        isFetchingForecast: true
+      });
+
+    case ActionTypes.RECEIVE_FORECAST_WEATHER:
+      return Object.assign({}, state, {
+        isFetchingForecast: false,
+        forecast: action.forecastWeatherData
       });
 
     default:

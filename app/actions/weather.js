@@ -4,6 +4,9 @@
 export const REQUEST_CURRENT_WEATHER = 'REQUEST_CURRENT_WEATHER'
 export const RECEIVE_CURRENT_WEATHER = 'RECEIVE_CURRENT_WEATHER'
 
+export const REQUEST_FORECAST_WEATHER = 'REQUEST_FORECAST_WEATHER'
+export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
+
 /*
  * Action Creators
  */
@@ -37,6 +40,47 @@ export function getCurrentWeather() {
       const json = JSON.parse(this.responseText)
       console.log( 'response', json);
       dispatch(receiveCurrentWeather(json))
+    }
+
+    xhr.onerror = function() {
+      alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send();
+  }
+
+}
+
+function requestForecastWeather() {
+  return {
+    type: REQUEST_FORECAST_WEATHER
+  }
+}
+
+function receiveForecastWeather(json) {
+  return {
+    type: RECEIVE_FORECAST_WEATHER,
+    forecastWeatherData: json.list
+  }
+}
+
+export function getForecastWeather() {
+
+  return dispatch => {
+    dispatch(requestForecastWeather())
+
+    const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+
+    var xhr = new XHR();
+
+    xhr.open('GET', URL, true);
+
+    xhr.onload = function() {
+      const json = JSON.parse(this.responseText)
+      console.log( 'response', json);
+      dispatch(receiveForecastWeather(json))
     }
 
     xhr.onerror = function() {
