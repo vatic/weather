@@ -4,6 +4,11 @@ import classNames from 'classnames'
 
 import { ui_test } from '../actions/ui'
 
+import NavbarMain from '../components/header/NavbarMain'
+import CitySearch from '../components/search/CitySearch'
+import CurrentWeather from '../components/weather/current/CurrentWeather'
+import ForecastWeather from '../components/weather/forecast/ForecastWeather'
+
 
 class App extends Component {
 
@@ -15,8 +20,17 @@ class App extends Component {
 
     return (
 
-      <div>
-        <h1>Hello Weather</h1>
+      <div id="wth_main">
+        <NavbarMain />
+        <div className="container-fluid">
+          <div className="row">
+            <CitySearch />
+          </div>
+          <div className="row weather-wrapper">
+            <CurrentWeather />
+            <ForecastWeather />
+          </div>
+        </div>
       </div>
 
     )
