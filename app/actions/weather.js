@@ -13,9 +13,10 @@ function requestCurrentWeather() {
   }
 }
 
-function receiveCurrentWeather() {
+function receiveCurrentWeather(currentWeatherData) {
   return {
-    type: RECEIVE_CURRENT_WEATHER
+    type: RECEIVE_CURRENT_WEATHER,
+    currentWeatherData
   }
 }
 
@@ -33,8 +34,9 @@ export function getCurrentWeather() {
     xhr.open('GET', URL, true);
 
     xhr.onload = function() {
-      console.log( 'response', this.responseText );
-      dispatch(receiveCurrentWeather())
+      const json = JSON.parse(this.responseText)
+      console.log( 'response', json);
+      dispatch(receiveCurrentWeather(json))
     }
 
     xhr.onerror = function() {

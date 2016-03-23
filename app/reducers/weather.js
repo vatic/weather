@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actions/weather'
 
 export default function weather(state = {
-  isFetching: false
+  isFetching: false,
+  currentCity: null
 }, action) {
 
   switch (action.type) {
@@ -13,7 +14,8 @@ export default function weather(state = {
 
     case ActionTypes.RECEIVE_CURRENT_WEATHER:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        currentCity: action.currentWeatherData.name
       });
 
     default:
