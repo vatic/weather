@@ -30,7 +30,8 @@ export function getCurrentWeather() {
   return dispatch => {
     dispatch(requestCurrentWeather())
 
-    const URL = 'http://api.openweathermap.org/data/2.5/weather?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    //const URL = 'http://api.openweathermap.org/data/2.5/weather?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    const URL = 'http://localhost:8080/current.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
@@ -59,8 +60,7 @@ function requestForecastWeather() {
   }
 }
 
-function receiveForecastWeather(json) {
-  return {
+function receiveForecastWeather(json) { return {
     type: RECEIVE_FORECAST_WEATHER,
     forecastWeatherData: json.list
   }
@@ -71,7 +71,8 @@ export function getForecastWeather() {
   return dispatch => {
     dispatch(requestForecastWeather())
 
-    const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    const URL = 'http://localhost:8080/forecast.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
@@ -81,8 +82,8 @@ export function getForecastWeather() {
 
     xhr.onload = function() {
       const json = JSON.parse(this.responseText)
-      console.log( 'response', json);
-      console.log('reduced',reduceArrayByEqualKeys(json.list, 'dt_txt', (strDate) => {(new Date(strDate)).getDate()} ))
+
+      //const reducedForecast = reduceArrayByEqualKeys(json.list, 'dt_txt', (dtTxt) => (new Date(dtTxt)).getDate() )
       dispatch(receiveForecastWeather(json))
     }
 

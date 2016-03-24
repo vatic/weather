@@ -1,4 +1,5 @@
 import * as ActionTypes from '../actions/weather'
+import { reduceArrayByEqualKeys } from '../utils/arrayUtils'
 
 export default function weather(state = {
   isFetchingCurrent: false,
@@ -28,9 +29,12 @@ export default function weather(state = {
       });
 
     case ActionTypes.RECEIVE_FORECAST_WEATHER:
+      const reducedForecast = reduceArrayByEqualKeys(action.forecastWeatherData, 'dt_txt', (dtTxt) => (new Date(dtTxt)).getDate() )
+      console.log('reduced',reducedForecast)
       return Object.assign({}, state, {
         isFetchingForecast: false,
-        forecast: action.forecastWeatherData
+        forecast: action.forecastWeatherData,
+        reducedForecast
       });
 
     default:
