@@ -16,10 +16,10 @@ class ForecastWeather extends Component {
   }
 
   render() {
-    const { forecast } = this.props.weather
-    window.forecast = forecast
+    const { forecast, reducedForecast } = this.props.weather
+    window.reducedForecast = reducedForecast
 
-    const forecastBlock = forecast.map( (item, index) => {
+    const dayForecastBlock = reducedForecast && reducedForecast.map( (item, index) => {
       return (
         <div key={`forecast_item_${index}`}>
           <ForecastItem weatherData={item} />
@@ -29,7 +29,7 @@ class ForecastWeather extends Component {
     return (
         <div className="col-md-8 forecast-weather">
           <h1>Forecast</h1>
-          { forecastBlock }
+          { dayForecastBlock }
         </div>
     )
   }
