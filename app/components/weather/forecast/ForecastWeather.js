@@ -21,7 +21,7 @@ class ForecastWeather extends Component {
 
     const dayForecastBlock = reducedForecast && reducedForecast.map( (item, index) => {
       return (
-        <div key={`forecast_item_${index}`}>
+        <div key={`forecast_daily_item_${index}`}>
           <ForecastItem weatherData={item} />
         </div>
       )
