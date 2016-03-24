@@ -1,3 +1,5 @@
+import { reduceArrayByEqualKeys } from '../utils/arrayUtils'
+
 /*
  * Action Types
  */
@@ -80,6 +82,7 @@ export function getForecastWeather() {
     xhr.onload = function() {
       const json = JSON.parse(this.responseText)
       console.log( 'response', json);
+      console.log('reduced',reduceArrayByEqualKeys(json.list, 'dt_txt', (strDate) => {(new Date(strDate)).getDate()} ))
       dispatch(receiveForecastWeather(json))
     }
 

@@ -17,9 +17,11 @@ class ForecastWeather extends Component {
 
   render() {
     const { forecast } = this.props.weather
+    window.forecast = forecast
+
     const forecastBlock = forecast.map( (item, index) => {
       return (
-        <div class="col-md-2" key={`forecast_item_${index}`}>
+        <div key={`forecast_item_${index}`}>
           <ForecastItem weatherData={item} />
         </div>
       )
