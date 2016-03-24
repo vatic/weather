@@ -27,8 +27,7 @@ class ForecastWeather extends Component {
       )
     })
     return (
-        <div className="col-md-8 forecast-weather">
-          <h1>Forecast</h1>
+        <div className="col-md-9 forecast-weather">
           { dayForecastBlock }
         </div>
     )
