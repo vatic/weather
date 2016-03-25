@@ -9,6 +9,8 @@ export const RECEIVE_CURRENT_WEATHER = 'RECEIVE_CURRENT_WEATHER'
 export const REQUEST_FORECAST_WEATHER = 'REQUEST_FORECAST_WEATHER'
 export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
 
+const API_KEY = '269c7810b0e920996f67e99515169306'
+
 /*
  * Action Creators
  */
@@ -30,7 +32,7 @@ export function getCurrentWeather() {
   return dispatch => {
     dispatch(requestCurrentWeather())
 
-    //const URL = 'http://api.openweathermap.org/data/2.5/weather?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    //const URL = `http://api.openweathermap.org/data/2.5/weather?id=561887&appid=${API_KEY}&units=metric`
     const URL = 'http://localhost:8080/current.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
@@ -71,7 +73,7 @@ export function getForecastWeather() {
   return dispatch => {
     dispatch(requestForecastWeather())
 
-    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=${API_KEY}&units=metric'
     const URL = 'http://localhost:8080/forecast.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;

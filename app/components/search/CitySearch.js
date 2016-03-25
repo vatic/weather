@@ -9,7 +9,6 @@ export default class CitySearch extends Component {
   render() {
     return (
         <div className="col-md-12 city-search-panel">
-          <h1>Search</h1>
         </div>
     )
   }
