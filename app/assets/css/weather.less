@@ -1,7 +1,6 @@
 @border-color: #e1e1e1;
 
 .city-search-form {
-  margin-right: 50%;
 
   input.city-search-input {
     width: 300px;
@@ -18,18 +17,19 @@
   min-height: 200px;
 }
 
-.current-weather {
+.current-weather, .forecast-weather {
   border: 1px solid #ddd;
   border-collapse: collapse;
-  border-radius: @border-radius-base;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: @border-radius-base;
+  border-bottom-left-radius: @border-radius-base;
   //border-bottom: 1px solid #ddd;
   padding: 10px;
 }
 
 
 .forecast-weather {
-  border: 1px solid @border-color;
-  border-collapse: collapse;
   min-height: 750px;
 }
 
@@ -60,4 +60,8 @@
 .nav-pills > li.active {
   border: 1px solid @border-color;
   border-bottom: none;
+  border-top-left-radius: @border-radius-base;
+  border-top-right-radius: @border-radius-base;
+  border-bottom-right-radius:0;
+  border-bottom-left-radius:0;
 }

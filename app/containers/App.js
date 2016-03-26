@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-
+import  { readLocalStorage } from '../actions/cities'
 import NavbarMain from '../components/header/NavbarMain'
 import CitySearch from '../components/search/CitySearch'
 import WeatherWrapper from '../components/weather/WeatherWrapper'
@@ -10,6 +10,10 @@ import CitiesList from '../components/cities/CitiesList'
 
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(readLocalStorage())
+  }
 
   render() {
 
