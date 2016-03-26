@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
+import { citySearchInputChange } from '../../actions/ui'
+import { getCurrentWeather } from '../../actions/weather'
 
 export default class NavbarMain extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    const { dispatch } = this.props
+    const { currentCitySearchInputValue } = this.props.ui
     return (
       <nav className="navbar navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand" href="#">Weather</a>
           </div>
-            <form className="navbar-form navbar-right city-search-form" role="search">
+              <form className="navbar-form navbar-right city-search-form" role="search"
+                onSubmit={ e => { e.preventDefault(); dispatch(getCurrentWeather('BY_CITY_NAME')) }}
+              >
               <div className="form-group">
-                <input type="text" className="form-control city-search-input" placeholder="Search" />
+                <input type="text" className="form-control city-search-input" placeholder="Search"
+                  value={currentCitySearchInputValue}
+                  onChange={ e => dispatch(citySearchInputChange(e.target.value))}
+                />
               </div>
-              <button type="submit" className="btn btn-default">Submit</button>
+              <button className="btn btn-default">
+              
+                Submit
+              </button>
             </form>
         </div>
       </nav>
@@ -26,3 +36,14 @@ export default class NavbarMain extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const { ui } = state
+
+  return {
+    ui
+  }
+}
+
+export default connect(mapStateToProps)(NavbarMain)
+

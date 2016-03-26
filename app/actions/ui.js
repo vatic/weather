@@ -1,13 +1,14 @@
 /*
  * Action Types
  */
-export const UI_TEST = 'UI_TEST'
+export const CITY_SEARCH_INPUT_CHANGE = 'CITY_SEARCH_INPUT_CHANGE'
 
 /*
  * Action Creators
  */
-export function ui_test() {
+export function citySearchInputChange(inputValue) {
   return {
-    type: UI_TEST
+    type: CITY_SEARCH_INPUT_CHANGE,
+    inputValue
   }
 }
