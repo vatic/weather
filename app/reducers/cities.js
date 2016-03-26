@@ -3,7 +3,9 @@ import * as ActionTypes from '../actions/cities'
 export default function ui(state = {
   list: [{name: 'Saint Petersburg', id: 498817}],
   current: {name: 'Saint Petersburg', id: 498817},
-  savedCitiesValid: false
+  savedCitiesValid: false,
+  lat: null,
+  lon: null
 }, action) {
 
   switch (action.type) {
@@ -16,6 +18,12 @@ export default function ui(state = {
         ],
         current: action.city,
         savedCitiesValid: false
+      });
+
+    case ActionTypes.ADD_COORDS:
+      return Object.assign({}, state, {
+        lat: action.lat,
+        lon: action.lon
       });
 
     case ActionTypes.REMOVE_CITY:
