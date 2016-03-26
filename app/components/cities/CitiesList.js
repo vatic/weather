@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 
-import { changeCurrentCityAndGetWeather } from '../../actions/cities'
+import { changeCurrentCityAndGetWeather, removeCity } from '../../actions/cities'
 
 
 export default class CitiesList extends Component {
@@ -10,6 +10,7 @@ export default class CitiesList extends Component {
 
   render() {
     const { list, current } = this.props.cities;
+    const { dispatch } = this.props
 
     const citiesBlock = list.map( city => {
       let activeCityClass = classNames(
@@ -17,7 +18,10 @@ export default class CitiesList extends Component {
         'disabled': city.id === current.id
       });
       return (
-          <a href="#" key={city.id} className={activeCityClass} onClick={ e => { this.props.dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}</a>
+          <a href="#" key={city.id} className={activeCityClass} onClick={ e => { dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}
+            <span className="glyphicon glyphicon-remove pull-right" aria-hidden="true" onClick={ e => { dispatch(removeCity(city))} }>
+            </span>
+          </a>
       )
     })
     return (

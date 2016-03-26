@@ -4,6 +4,7 @@ import { getCurrentWeather } from './weather'
  * Action Types
  */
 export const ADD_CITY = 'ADD_CITY'
+export const REMOVE_CITY = 'REMOVE_CITY'
 export const CHANGE_CURRENT_CITY = 'CHANGE_CURRENT_CITY'
 export const UPDATE_LOCAL_STORAGE = 'UPDATE_LOCAL_STORAGE'
 export const READ_LOCAL_STORAGE = 'READ_LOCAL_STORAGE'
@@ -18,9 +19,23 @@ export function addCityToState(city) {
   }
 }
 
+export function removeCityFromState(city) {
+  return {
+    type: REMOVE_CITY,
+    city
+  }
+}
+
 export function addCity(city) {
   return (dispatch, getState) => {
     dispatch(addCityToState(city))
+    dispatch(updateLocalStorage())
+  }
+}
+
+export function removeCity(city) {
+  return (dispatch, getState) => {
+    dispatch(removeCityFromState(city))
     dispatch(updateLocalStorage())
   }
 }

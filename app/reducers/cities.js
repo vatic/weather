@@ -18,6 +18,18 @@ export default function ui(state = {
         savedCitiesValid: false
       });
 
+    case ActionTypes.REMOVE_CITY:
+      const index = state.list.findIndex( (el, index, arr) => (el.id === action.city.id && el.name === action.city.name))
+
+      return Object.assign({}, state, {
+        list: [
+          state.list.slice(0, index),
+          state.list.slice(index+1, state.list.length),
+        ],
+        current: state.list[0],
+        savedCitiesValid: false
+      });
+
     case ActionTypes.CHANGE_CURRENT_CITY:
       return Object.assign({}, state, {
         current: action.city
