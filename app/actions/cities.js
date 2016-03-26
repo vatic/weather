@@ -1,4 +1,5 @@
 import { getCurrentWeather } from './weather'
+import { changeTab } from './ui'
 
 /*
  * Action Types
@@ -51,6 +52,7 @@ export function changeCurrentCityAndGetWeather(city) {
   return (dispatch, getState) => {
     dispatch(changeCurrentCity(city))
     dispatch(getCurrentWeather())
+    dispatch(changeTab('CURRENT'))
 
   }
 }

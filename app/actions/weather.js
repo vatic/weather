@@ -84,11 +84,13 @@ function receiveForecastWeather(json) { return {
 
 export function getForecastWeather() {
 
-  return dispatch => {
+  return (dispatch, getState) => {
+    const cityId = getState().cities.current.id
+
     dispatch(requestForecastWeather())
 
-    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=${API_KEY}&units=metric'
-    const URL = 'http://localhost:8080/forecast.json'
+    const URL = `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=${API_KEY}&units=metric`
+    //const URL = 'http://localhost:8080/forecast.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
