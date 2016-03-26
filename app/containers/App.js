@@ -5,8 +5,7 @@ import classNames from 'classnames'
 
 import NavbarMain from '../components/header/NavbarMain'
 import CitySearch from '../components/search/CitySearch'
-import CurrentWeather from '../components/weather/current/CurrentWeather'
-import ForecastWeather from '../components/weather/forecast/ForecastWeather'
+import WeatherWrapper from '../components/weather/WeatherWrapper'
 import CitiesList from '../components/cities/CitiesList'
 
 
@@ -21,7 +20,7 @@ class App extends Component {
         <div className="container-fluid">
           <div className="row weather-wrapper">
             <CitiesList {...this.props} />
-            <CurrentWeather {...this.props} />
+            <WeatherWrapper {...this.props} />
           </div>
         </div>
       </div>

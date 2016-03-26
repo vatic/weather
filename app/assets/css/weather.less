@@ -14,20 +14,27 @@
   min-height: 100px;
 }
 
-weather-wrapper {
+.weather-wrapper {
   min-height: 200px;
 }
 
 .current-weather {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  border-radius: @border-radius-base;
+  //border-bottom: 1px solid #ddd;
+  padding: 10px;
 }
 
+
 .forecast-weather {
-  margin-top: 10px;
-  border-left: 1px solid @border-color;
+  border: 1px solid @border-color;
+  border-collapse: collapse;
+  min-height: 750px;
 }
 
 .daily-forecast-panel > .thumbnail{
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 0px;
   border: 1px solid @border-color;
   min-height: 340px;
@@ -40,4 +47,17 @@ weather-wrapper {
 
 .daily-forecast-panel > .thumbnail > table {
   margin: 5px;
+}
+
+.weather-wrapper .nav-tabs {
+  border: none
+}
+
+.weather-wrapper .nav-tabs > li {
+  width: 50%;
+}
+
+.nav-pills > li.active {
+  border: 1px solid @border-color;
+  border-bottom: none;
 }
