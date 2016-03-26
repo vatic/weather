@@ -20,7 +20,7 @@ export default class CitySearch extends Component {
     }
     return (
       <div className="col-md-9 weather-wrapper">
-        <ul className="nav nav-tabs">
+        <ul className="nav nav-pills nav-justified">
           <li role="navigation" className={activeTabClass('CURRENT')}>
             <a href="#" onClick={ e => this.props.dispatch(changeTab('CURRENT'))}>
               Current
