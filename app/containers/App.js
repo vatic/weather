@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-import { ui_test } from '../actions/ui'
 
 import NavbarMain from '../components/header/NavbarMain'
 import CitySearch from '../components/search/CitySearch'
 import CurrentWeather from '../components/weather/current/CurrentWeather'
 import ForecastWeather from '../components/weather/forecast/ForecastWeather'
+import CitiesList from '../components/cities/CitiesList'
 
 
 class App extends Component {
-
-  componentDidMount() {
-    this.props.dispatch(ui_test())
-  }
 
   render() {
 
@@ -23,12 +19,9 @@ class App extends Component {
       <div id="wth_main">
         <NavbarMain />
         <div className="container-fluid">
-          <div className="row">
-            <CitySearch />
-          </div>
           <div className="row weather-wrapper">
+            <CitiesList {...this.props} />
             <CurrentWeather {...this.props} />
-            <ForecastWeather {...this.props} />
           </div>
         </div>
       </div>
@@ -38,10 +31,11 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { ui } = state
+  const { ui, cities } = state
 
   return {
-    ui
+    ui,
+    cities
   }
 }
 

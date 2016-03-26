@@ -1,3 +1,5 @@
+import { addCity } from './cities'
+
 import { reduceArrayByEqualKeys } from '../utils/arrayUtils'
 
 /*
@@ -8,6 +10,8 @@ export const RECEIVE_CURRENT_WEATHER = 'RECEIVE_CURRENT_WEATHER'
 
 export const REQUEST_FORECAST_WEATHER = 'REQUEST_FORECAST_WEATHER'
 export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
+
+const API_KEY = '269c7810b0e920996f67e99515169306'
 
 /*
  * Action Creators
@@ -25,24 +29,36 @@ function receiveCurrentWeather(currentWeatherData) {
   }
 }
 
-export function getCurrentWeather() {
+export function getCurrentWeather(requestType) {
 
-  return dispatch => {
+  return (dispatch, getState) => {
+    const city = getState().ui.currentCitySearchInputValue;
+    const cityId = getState().cities.current.id
+    //const cityId = 498817;
+    let url;
+
     dispatch(requestCurrentWeather())
 
-    //const URL = 'http://api.openweathermap.org/data/2.5/weather?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
-    const URL = 'http://localhost:8080/current.json'
+    if (requestType === 'BY_CITY_NAME') {
+      url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+    } else {
+      url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`
+      //const URL = 'http://localhost:8080/current.json'
+    }
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
 
     var xhr = new XHR();
 
-    xhr.open('GET', URL, true);
+    xhr.open('GET', url, true);
 
     xhr.onload = function() {
       const json = JSON.parse(this.responseText)
-      console.log( 'response', json);
+      console.log( 'response', this);
       dispatch(receiveCurrentWeather(json))
+      if (requestType === 'BY_CITY_NAME') {
+        dispatch(addCity({name: json.name, id: json.id}))
+      }
     }
 
     xhr.onerror = function() {
@@ -71,7 +87,7 @@ export function getForecastWeather() {
   return dispatch => {
     dispatch(requestForecastWeather())
 
-    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=269c7810b0e920996f67e99515169306&units=metric'
+    //const URL = 'http://api.openweathermap.org/data/2.5/forecast?id=561887&appid=${API_KEY}&units=metric'
     const URL = 'http://localhost:8080/forecast.json'
 
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;

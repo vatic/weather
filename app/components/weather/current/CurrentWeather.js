@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 import { getCurrentWeather } from '../../../actions/weather'
+import { changeCurrentCityAndGetWeather } from '../../../actions/cities'
+
 
 class CurrentWeather extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-    this.props.dispatch(getCurrentWeather())
+    this.props.dispatch(changeCurrentCityAndGetWeather(this.props.cities.current))
   }
 
   render() {
@@ -19,8 +17,8 @@ class CurrentWeather extends Component {
     const { currentCity } = this.props.weather 
     const { humidity, pressure, temp } = this.props.weather.mainWeatherValues
     return (
-        <div className="col-md-3 current-weather">
-          <h1>{this.props.weather.currentCity}</h1>
+        <div className="col-md-9 current-weather">
+          <h1><small>{this.props.weather.currentCity}</small></h1>
           <ul className="list-group">
           	<li className="list-group-item">Temperature: {temp} &deg;C</li>
           	<li className="list-group-item">Humidity: {humidity} &#37;</li>
@@ -32,10 +30,11 @@ class CurrentWeather extends Component {
 }
 
 function mapStateToProps(state) {
-  const { weather } = state
+  const { weather, cities } = state
 
   return {
-    weather
+    weather,
+    cities
   }
 }
 
