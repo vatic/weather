@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
+
 
 import { changeCurrentCityAndGetWeather } from '../../actions/cities'
 
 
 export default class CitiesList extends Component {
 
+
   render() {
-    const { list } = this.props.cities;
+    const { list, current } = this.props.cities;
 
     const citiesBlock = list.map( city => {
+      let activeCityClass = classNames(
+        'list-group-item', {
+        'disabled': city.id === current.id
+      });
       return (
-        <div className="list-group-item" key={city.id} >
-          <a href="#" onClick={ e => { this.props.dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}</a>
-          
-        </div>
+          <a href="#" key={city.id} className={activeCityClass} onClick={ e => { this.props.dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}</a>
       )
     })
     return (

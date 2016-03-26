@@ -56,6 +56,9 @@ export function getCurrentWeather(requestType) {
       const json = JSON.parse(this.responseText)
       console.log( 'response', this);
       dispatch(receiveCurrentWeather(json))
+      if (requestType === 'BY_CITY_NAME') {
+        dispatch(addCity({name: json.name, id: json.id}))
+      }
     }
 
     xhr.onerror = function() {
