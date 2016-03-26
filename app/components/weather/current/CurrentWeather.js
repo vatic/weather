@@ -17,7 +17,7 @@ class CurrentWeather extends Component {
     const { currentCity } = this.props.weather 
     const { humidity, pressure, temp } = this.props.weather.mainWeatherValues
     return (
-        <div className="col-md-9 current-weather">
+        <div className="current-weather">
           <h1><small>{this.props.weather.currentCity}</small></h1>
           <ul className="list-group">
           	<li className="list-group-item">Temperature: {temp} &deg;C</li>
