@@ -31,13 +31,13 @@ export default class CitySearch extends Component {
               Forecast
             </a>
           </li>
+        </ul>
             {this.props.ui.currentTab === 'CURRENT' &&
               <CurrentWeather />
             }
             {this.props.ui.currentTab === 'FORECAST' &&
               <ForecastWeather />
             }
-        </ul>
       </div>
     )
   }
