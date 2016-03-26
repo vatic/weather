@@ -19,7 +19,8 @@ export default class CitiesList extends Component {
       });
       return (
           <a href="#" key={city.id} className={activeCityClass} onClick={ e => { dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}
-            <span className="glyphicon glyphicon-remove pull-right" aria-hidden="true" onClick={ e => { dispatch(removeCity(city))} }>
+            <span className="glyphicon glyphicon-remove pull-right" aria-hidden="true"
+              onClick={ e => { e.stopPropagation(); dispatch(removeCity(city))} }>
             </span>
           </a>
       )

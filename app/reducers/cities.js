@@ -20,11 +20,12 @@ export default function ui(state = {
 
     case ActionTypes.REMOVE_CITY:
       const index = state.list.findIndex( (el, index, arr) => (el.id === action.city.id && el.name === action.city.name))
+      console.log('index',index)
 
       return Object.assign({}, state, {
         list: [
-          state.list.slice(0, index),
-          state.list.slice(index+1, state.list.length),
+          ...state.list.slice(0, index),
+          ...state.list.slice(index+1, state.list.length),
         ],
         current: state.list[0],
         savedCitiesValid: false

@@ -37,6 +37,7 @@ export function removeCity(city) {
   return (dispatch, getState) => {
     dispatch(removeCityFromState(city))
     dispatch(updateLocalStorage())
+    dispatch(changeCurrentCityAndGetWeather(getState().cities.list[0]))
   }
 }
 
