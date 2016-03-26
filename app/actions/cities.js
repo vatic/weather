@@ -1,4 +1,5 @@
 import { getCurrentWeather } from './weather'
+import { changeTab } from './ui'
 
 /*
  * Action Types
@@ -37,6 +38,7 @@ export function removeCity(city) {
   return (dispatch, getState) => {
     dispatch(removeCityFromState(city))
     dispatch(updateLocalStorage())
+    dispatch(changeCurrentCityAndGetWeather(getState().cities.list[0]))
   }
 }
 
@@ -50,6 +52,7 @@ export function changeCurrentCityAndGetWeather(city) {
   return (dispatch, getState) => {
     dispatch(changeCurrentCity(city))
     dispatch(getCurrentWeather())
+    dispatch(changeTab('CURRENT'))
 
   }
 }
