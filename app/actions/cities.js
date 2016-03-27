@@ -46,8 +46,10 @@ export function reverseGeocode(lat,lon) {
 
     xhr.onload = function() {
       const json = JSON.parse(this.responseText)
-      console.log( 'nominatim response', this);
-      dispatch(receiveReverseGeocode(json))
+      // for debug set timeout to see spinner
+      setTimeout( () =>
+        dispatch(receiveReverseGeocode(json))
+      , 1000)
     }
 
     xhr.onerror = function() {

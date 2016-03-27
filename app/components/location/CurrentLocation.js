@@ -7,11 +7,18 @@ export default class CurrentLocation extends Component {
   }
 
   render() {
+    const { geoJson, isGeocodeFetching } = this.props.cities;
+
     return (
         <div className="col-md-12 current-location text-center">
-          <div className="well">
-            { this.props.cities.geoJson.display_name }
-          </div>
+          { isGeocodeFetching &&
+            <i className="fa fa-spinner fa-spin"></i>
+          }
+          { !isGeocodeFetching &&
+            <div className="well">
+              { geoJson.display_name }
+            </div>
+          }
         </div>
     )
   }

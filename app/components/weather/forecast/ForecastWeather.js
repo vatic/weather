@@ -16,7 +16,7 @@ class ForecastWeather extends Component {
   }
 
   render() {
-    const { forecast, reducedForecast } = this.props.weather
+    const { isFetchingForecast, forecast, reducedForecast } = this.props.weather
     window.reducedForecast = reducedForecast
 
     const dayForecastBlock = reducedForecast && reducedForecast.map( (item, index) => {
@@ -27,8 +27,15 @@ class ForecastWeather extends Component {
       )
     })
     return (
+        <div >
+          { isFetchingForecast &&
+            <i className="fa fa-spinner fa-spin"></i>
+          }
+          { !isFetchingForecast &&
         <div className="forecast-weather">
-          { dayForecastBlock }
+            { dayForecastBlock }
+        </div>
+          }
         </div>
     )
   }
