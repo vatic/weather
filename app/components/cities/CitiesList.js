@@ -14,12 +14,12 @@ export default class CitiesList extends Component {
 
     const citiesBlock = list.map( city => {
       let activeCityClass = classNames(
-        'list-group-item', {
+        'list-group-item', 'city-item', {
         'disabled': city.id === current.id
       });
       return (
           <a href="#" key={city.id} className={activeCityClass} onClick={ e => { dispatch(changeCurrentCityAndGetWeather(city)) } } >{city.name}
-            <span className="glyphicon glyphicon-remove pull-right" aria-hidden="true"
+            <span className="glyphicon glyphicon-remove pull-right remove-city" aria-hidden="true"
               onClick={ e => { e.stopPropagation(); dispatch(removeCity(city))} }>
             </span>
           </a>

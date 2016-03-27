@@ -3,19 +3,34 @@ import * as ActionTypes from '../actions/cities'
 export default function ui(state = {
   list: [{name: 'Saint Petersburg', id: 498817}],
   current: {name: 'Saint Petersburg', id: 498817},
-  savedCitiesValid: false
+  savedCitiesValid: false,
+  lat: null,
+  lon: null,
+  isGeocodeFetching: false,
+  geoJson: {}
 }, action) {
 
   switch (action.type) {
 
+    case ActionTypes.REQUEST_REVERSE_GEOCODE:
+      return Object.assign({}, state, {
+        isGeocodeFetching: true
+      });
+
+    case ActionTypes.RECEIVE_REVERSE_GEOCODE:
+      return Object.assign({}, state, {
+        isGeocodeFetching: false,
+        geoJson: action.geoJson
+      });
+
     case ActionTypes.ADD_CITY:
       return Object.assign({}, state, {
-        list: [
-          ...state.list,
-          action.city
-        ],
-        current: action.city,
-        savedCitiesValid: false
+      });
+
+    case ActionTypes.ADD_COORDS:
+      return Object.assign({}, state, {
+        lat: action.lat,
+        lon: action.lon
       });
 
     case ActionTypes.REMOVE_CITY:

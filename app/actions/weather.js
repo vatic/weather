@@ -34,6 +34,7 @@ export function getCurrentWeather(requestType) {
   return (dispatch, getState) => {
     const city = getState().ui.currentCitySearchInputValue;
     const cityId = getState().cities.current.id
+    const {lat, lon} = getState().cities
     //const cityId = 498817;
     let url;
 
@@ -41,6 +42,9 @@ export function getCurrentWeather(requestType) {
 
     if (requestType === 'BY_CITY_NAME') {
       url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+    } else if (requestType === 'BY_COORDS') {
+      url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+      //const URL = 'http://localhost:8080/current.json'
     } else {
       url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`
       //const URL = 'http://localhost:8080/current.json'
@@ -56,7 +60,7 @@ export function getCurrentWeather(requestType) {
       const json = JSON.parse(this.responseText)
       console.log( 'response', this);
       dispatch(receiveCurrentWeather(json))
-      if (requestType === 'BY_CITY_NAME') {
+      if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
         dispatch(addCity({name: json.name, id: json.id}))
       }
     }
