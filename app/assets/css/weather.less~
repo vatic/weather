@@ -77,9 +77,6 @@
   display: inline
 }
 
-.current-location {
-}
-
 .current-location .well {
   margin-bottom: 10px;
   padding: 5px;

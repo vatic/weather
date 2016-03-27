@@ -12,19 +12,25 @@ class CurrentWeather extends Component {
   }
 
   render() {
-    console.log('props', this.props)
     const hpaToAtm = 0.750062
-    const { currentCity } = this.props.weather 
+    const { currentCity, isFetchingCurrent } = this.props.weather 
     const { humidity, pressure, temp } = this.props.weather.mainWeatherValues
     return (
-        <div className="current-weather">
-          <h1><small>{this.props.weather.currentCity}</small></h1>
-          <ul className="list-group">
-          	<li className="list-group-item">Temperature: {temp} &deg;C</li>
-          	<li className="list-group-item">Humidity: {humidity} &#37;</li>
-          	<li className="list-group-item">Pressure: { Math.round(pressure * hpaToAtm) } mm Hg</li>
-          </ul>
-        </div>
+      <div>
+        { isFetchingCurrent &&
+          <i className="fa fa-spinner fa-spin"></i>
+        }
+        { !isFetchingCurrent &&
+          <div className="current-weather">
+            <h1><small>{this.props.weather.currentCity}</small></h1>
+            <ul className="list-group">
+              <li className="list-group-item">Temperature: {temp} &deg;C</li>
+              <li className="list-group-item">Humidity: {humidity} &#37;</li>
+              <li className="list-group-item">Pressure: { Math.round(pressure * hpaToAtm) } mm Hg</li>
+            </ul>
+          </div>
+        }
+      </div>
     )
   }
 }
