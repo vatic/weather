@@ -60,7 +60,7 @@ export function getCurrentWeather(requestType) {
       const json = JSON.parse(this.responseText)
       console.log( 'response', this);
       dispatch(receiveCurrentWeather(json))
-      if (requestType === 'BY_CITY_NAME') {
+      if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
         dispatch(addCity({name: json.name, id: json.id}))
       }
     }

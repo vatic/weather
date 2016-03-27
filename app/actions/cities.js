@@ -20,6 +20,9 @@ export function promptUserLocation() {
     navigator.geolocation.getCurrentPosition( (position) => {
       dispatch(addCoords(position.coords.latitude, position.coords.longitude))
       dispatch(getCurrentWeather('BY_COORDS'))
+    }, (error) => {
+      console.log('get location denied', error);
+      dispatch(changeCurrentCityAndGetWeather(getState().cities.list[0]))
     });
   }
 }
@@ -49,8 +52,10 @@ export function removeCityFromState(city) {
 
 export function addCity(city) {
   return (dispatch, getState) => {
-    dispatch(addCityToState(city))
-    dispatch(updateLocalStorage())
+    if ( getState().cities.list.map( c => c.id ).indexOf(city.id) === -1 ) {
+      dispatch(addCityToState(city))
+      dispatch(updateLocalStorage())
+    }
   }
 }
 
