@@ -29,7 +29,9 @@ class ForecastWeather extends Component {
     return (
         <div >
           { isFetchingForecast &&
-            <i className="fa fa-spinner fa-spin"></i>
+            <div className="weather-loader">
+              <i className="fa fa-spinner fa-spin fa-5x"></i>
+            </div>
           }
           { !isFetchingForecast &&
         <div className="forecast-weather">

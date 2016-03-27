@@ -1,4 +1,5 @@
 @border-color: #e1e1e1;
+@tabs-border-radius: 10px;
 
 .city-search-form {
 
@@ -60,8 +61,17 @@
 .nav-pills > li.active {
   border: 1px solid @border-color;
   border-bottom: none;
-  border-top-left-radius: @border-radius-base;
-  border-top-right-radius: @border-radius-base;
+  border-top-left-radius: @tabs-border-radius;
+  border-top-right-radius: @tabs-border-radius;
+  border-bottom-right-radius:0;
+  border-bottom-left-radius:0;
+}
+
+.nav-pills > li{
+  border: 1px solid @border-color;
+  border-bottom: none;
+  border-top-left-radius: @tabs-border-radius;
+  border-top-right-radius: @tabs-border-radius;
   border-bottom-right-radius:0;
   border-bottom-left-radius:0;
 }
@@ -84,5 +94,10 @@
   margin-bottom: 10px;
   padding: 5px;
   font-size: 0.85em;
+}
+
+.weather-loader {
+  margin-left: 40%;
+  margin-top: 200px;
 }
 
