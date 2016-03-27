@@ -18,7 +18,9 @@ class CurrentWeather extends Component {
     return (
       <div>
         { isFetchingCurrent &&
-          <i className="fa fa-spinner fa-spin"></i>
+          <div className="weather-loader">
+            <i className="fa fa-spinner fa-spin fa-5x"></i>
+          </div>
         }
         { !isFetchingCurrent &&
           <div className="current-weather">

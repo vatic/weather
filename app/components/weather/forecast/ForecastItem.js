@@ -6,11 +6,11 @@ export default class ForecastItem extends Component {
   render() {
     const hpaToAtm = 0.750062
     const { weatherData } = this.props
-    const date = new Date(weatherData[0].dt_txt).toLocaleDateString()
+    const date = new Date(weatherData[0].dt*1000).toLocaleDateString()
     const forecastBlock = weatherData.map ( (item, index) => {
       return (
         <tr key={`forecast_item_${index}`}>
-          <td>{new Date(item.dt_txt).toLocaleTimeString()}</td>
+          <td>{new Date(item.dt*1000).toLocaleTimeString()}</td>
           <td><strong>{item.main.temp > 0 ? `+${item.main.temp}` : item.main.temp}</strong></td>
           <td><strong>{item.main.humidity}</strong></td>
           <td className="text-center"><strong>{Math.round(item.main.pressure * hpaToAtm) }</strong></td>
