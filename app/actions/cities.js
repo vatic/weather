@@ -10,16 +10,63 @@ export const CHANGE_CURRENT_CITY = 'CHANGE_CURRENT_CITY'
 export const UPDATE_LOCAL_STORAGE = 'UPDATE_LOCAL_STORAGE'
 export const READ_LOCAL_STORAGE = 'READ_LOCAL_STORAGE'
 export const ADD_COORDS = 'ADD_COORDS'
+export const REQUEST_REVERSE_GEOCODE = 'REQUEST_REVERSE_GEOCODE'
+export const RECEIVE_REVERSE_GEOCODE = 'RECEIVE_REVERSE_GEOCODE'
 
 /*
  * Action Creators
  */
+function requestReverseGeocode(lat,lon) {
+  return {
+    type: REQUEST_REVERSE_GEOCODE,
+    lat,
+    lon
+  }
+}
+
+function receiveReverseGeocode(geoJson) {
+  return {
+    type: RECEIVE_REVERSE_GEOCODE,
+    geoJson
+  }
+}
+
+export function reverseGeocode(lat,lon) {
+
+
+  return (dispatch, getState) => {
+    const NOMINATIM_URL = `http://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
+
+    const XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    var xhr = new XHR();
+
+    dispatch(requestReverseGeocode())
+
+    xhr.open('GET', NOMINATIM_URL, true);
+
+    xhr.onload = function() {
+      const json = JSON.parse(this.responseText)
+      console.log( 'nominatim response', this);
+      dispatch(receiveReverseGeocode(json))
+    }
+
+    xhr.onerror = function() {
+      alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send();
+  }
+
+}
+
 export function promptUserLocation() {
 
   return (dispatch, getState) => {
     navigator.geolocation.getCurrentPosition( (position) => {
-      dispatch(addCoords(position.coords.latitude, position.coords.longitude))
+      const { latitude, longitude } = position.coords
+      dispatch(addCoords(latitude, longitude))
       dispatch(getCurrentWeather('BY_COORDS'))
+      dispatch(reverseGeocode(latitude, longitude))
     }, (error) => {
       console.log('get location denied', error);
       dispatch(changeCurrentCityAndGetWeather(getState().cities.list[0]))
@@ -28,7 +75,6 @@ export function promptUserLocation() {
 }
 
 export function addCoords(lat, lon) {
-  console.log(lat,lon)
   return {
     type: ADD_COORDS,
     lat,

@@ -4,9 +4,9 @@ import classNames from 'classnames'
 
 import  { readLocalStorage, promptUserLocation } from '../actions/cities'
 import NavbarMain from '../components/header/NavbarMain'
-import CitySearch from '../components/search/CitySearch'
 import WeatherWrapper from '../components/weather/WeatherWrapper'
 import CitiesList from '../components/cities/CitiesList'
+import CurrentLocation from '../components/location/CurrentLocation'
 
 
 class App extends Component {
@@ -23,6 +23,9 @@ class App extends Component {
       <div id="wth_main">
         <NavbarMain />
         <div className="container-fluid">
+          <div className="row current-location-wrapper">
+            <CurrentLocation {...this.props} />
+          </div>
           <div className="row weather-wrapper">
             <CitiesList {...this.props} />
             <WeatherWrapper {...this.props} />
