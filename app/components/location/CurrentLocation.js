@@ -16,6 +16,7 @@ export default class CurrentLocation extends Component {
           }
           { !isGeocodeFetching &&
             <div className="well">
+              <strong>Your current location: </strong>
               { geoJson.display_name }
             </div>
           }
