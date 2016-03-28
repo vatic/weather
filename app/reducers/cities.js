@@ -25,6 +25,11 @@ export default function ui(state = {
 
     case ActionTypes.ADD_CITY:
       return Object.assign({}, state, {
+        list: [
+          ...state.list,
+          action.city
+        ],
+        current: action.city
       });
 
     case ActionTypes.ADD_COORDS:

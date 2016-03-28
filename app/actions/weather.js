@@ -85,7 +85,6 @@ export function getForecastWeather() {
     dispatch(requestForecastWeather())
 
     const URL = URLS.FORECAST_BY_ID(cityId)
-    //const URL = 'http://localhost:8080/forecast.json'
 
     const onload = function() {
       const json = JSON.parse(this.responseText)
