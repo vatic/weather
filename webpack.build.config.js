@@ -3,12 +3,7 @@
 var webpack = require("webpack");
 var path = require("path");
 
-var node_dir = __dirname + '/node_modules';
-var vendor_dir = __dirname + '/vendor';
-var bundle_dir = __dirname + '/build';
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HandlebarsPlugin = require("handlebars-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 
@@ -23,7 +18,7 @@ module.exports = {
 
 
   output: {
-    path: path.resolve(__dirname, '../public'),
+    path: path.resolve(__dirname, './public'),
     filename: 'weather.js'
 
   },
@@ -71,19 +66,6 @@ module.exports = {
     new ExtractTextPlugin("weather.css", {
       allChunks: true
     }),
-
-    new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-        _: "lodash"
-    }),
-
-    new webpack.DefinePlugin({
-      API_PORT: JSON.stringify(8080),
-      API_HOST: JSON.stringify('localhost'),
-    })
-
   ]
 
 
