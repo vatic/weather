@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot --inline --content-base app/",
+    "build": "webpack --progress --colors --config webpack.build.config.js",
     "test": "jest"
   },
   "repository": {
@@ -53,6 +54,7 @@
     "bootstrap": "3.3.6",
     "classnames": "2.2.3",
     "css-loader": "0.23.1",
+    "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
     "font-awesome": "4.5.0",
