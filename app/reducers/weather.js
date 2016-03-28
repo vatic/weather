@@ -6,7 +6,10 @@ export default function weather(state = {
   isFetchingForecast: false,
   currentCity: null,
   mainWeatherValues: {},
-  forecast: []
+  forecast: [],
+  isServerError: false,
+  isNetworkError: false,
+  errorMessage: null
 }, action) {
 
   switch (action.type) {
@@ -21,6 +24,14 @@ export default function weather(state = {
         isFetchingCurrent: false,
         currentCity: action.currentWeatherData.name,
         mainWeatherValues: action.currentWeatherData.main
+      });
+
+    case ActionTypes.RECEIVE_WEATHER_ERROR:
+      return Object.assign({}, state, {
+        isFetchingCurrent: false,
+        isFetchingForecast: false,
+        isServerError: true,
+        errorMessage: action.msg
       });
 
     case ActionTypes.REQUEST_FORECAST_WEATHER:

@@ -1,6 +1,8 @@
 import { addCity } from './cities'
 
 import { reduceArrayByEqualKeys } from '../utils/arrayUtils'
+import { xhr } from '../utils/xhr'
+import { URLS } from '../config'
 
 /*
  * Action Types
@@ -10,6 +12,8 @@ export const RECEIVE_CURRENT_WEATHER = 'RECEIVE_CURRENT_WEATHER'
 
 export const REQUEST_FORECAST_WEATHER = 'REQUEST_FORECAST_WEATHER'
 export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
+
+export const RECEIVE_WEATHER_ERROR = 'RECEIVE_WEATHER_ERROR'
 
 const API_KEY = '269c7810b0e920996f67e99515169306'
 
@@ -29,47 +33,47 @@ function receiveCurrentWeather(currentWeatherData) {
   }
 }
 
+function receiveWeatherError(msg) {
+  return {
+    type: RECEIVE_WEATHER_ERROR,
+    msg
+  }
+}
+
 export function getCurrentWeather(requestType) {
 
   return (dispatch, getState) => {
     const city = getState().ui.currentCitySearchInputValue;
     const cityId = getState().cities.current.id
     const {lat, lon} = getState().cities
-    //const cityId = 498817;
     let url;
 
     dispatch(requestCurrentWeather())
 
     if (requestType === 'BY_CITY_NAME') {
-      url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      url = URLS.WEATHER_BY_CITY_NAME(city)
     } else if (requestType === 'BY_COORDS') {
-      url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
-      //const URL = 'http://localhost:8080/current.json'
+      url = URLS.WEATHER_BY_COORDS(lat, lon)
     } else {
-      url = `http://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`
-      //const URL = 'http://localhost:8080/current.json'
+      url = URLS.WEATHER_BY_ID(cityId)
     }
 
-    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-
-    var xhr = new XHR();
-
-    xhr.open('GET', url, true);
-
-    xhr.onload = function() {
+    const onload = function() {
       const json = JSON.parse(this.responseText)
       console.log( 'response', this);
-      dispatch(receiveCurrentWeather(json))
-      if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
-        dispatch(addCity({name: json.name, id: json.id}))
+      if (this.status >= 200 && this.status < 300) {
+        dispatch(receiveCurrentWeather(json))
+        if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
+          dispatch(addCity({name: json.name, id: json.id}))
+        }
+      } else {
+        dispatch(receiveWeatherError(this.responseText))
       }
     }
-
-    xhr.onerror = function() {
+    const onerror = function() {
       alert( 'Ошибка ' + this.status );
     }
-
-    xhr.send();
+    xhr.get(url, onload, onerror);
   }
 
 }
@@ -93,27 +97,22 @@ export function getForecastWeather() {
 
     dispatch(requestForecastWeather())
 
-    const URL = `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=${API_KEY}&units=metric`
-    //const URL = 'http://localhost:8080/forecast.json'
+    const URL = URLS.FORECAST_BY_ID(cityId)
 
-    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-
-    var xhr = new XHR();
-
-    xhr.open('GET', URL, true);
-
-    xhr.onload = function() {
+    const onload = function() {
       const json = JSON.parse(this.responseText)
-
-      //const reducedForecast = reduceArrayByEqualKeys(json.list, 'dt_txt', (dtTxt) => (new Date(dtTxt)).getDate() )
-      dispatch(receiveForecastWeather(json))
+      if (this.status >= 200 && this.status < 300) {
+        dispatch(receiveForecastWeather(json))
+      } else {
+        dispatch(receiveWeatherError(this.responseText))
+      }
     }
 
-    xhr.onerror = function() {
+    const onerror = function() {
       alert( 'Ошибка ' + this.status );
     }
 
-    xhr.send();
+    xhr.get(URL, onload, onerror);
   }
 
 }

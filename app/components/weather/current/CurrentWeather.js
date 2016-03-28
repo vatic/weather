@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
+import WeatherError from '../../errors/WeatherError'
+
 import { getCurrentWeather } from '../../../actions/weather'
 import { changeCurrentCityAndGetWeather } from '../../../actions/cities'
 
@@ -13,7 +15,7 @@ class CurrentWeather extends Component {
 
   render() {
     const hpaToAtm = 0.750062
-    const { currentCity, isFetchingCurrent } = this.props.weather 
+    const { currentCity, isFetchingCurrent, isServerError } = this.props.weather 
     const { humidity, pressure, temp } = this.props.weather.mainWeatherValues
     return (
       <div>
@@ -22,7 +24,10 @@ class CurrentWeather extends Component {
             <i className="fa fa-spinner fa-spin fa-5x"></i>
           </div>
         }
-        { !isFetchingCurrent &&
+        { !isFetchingCurrent && isServerError &&
+          <WeatherError />
+        }
+        { !isFetchingCurrent && !isServerError &&
           <div className="current-weather">
             <h1><small>{this.props.weather.currentCity}</small></h1>
             <ul className="list-group">

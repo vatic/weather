@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { getForecastWeather } from '../../../actions/weather'
 
+import WeatherError from '../../errors/WeatherError'
+
 import ForecastItem from './ForecastItem'
 
 class ForecastWeather extends Component {
@@ -16,7 +18,7 @@ class ForecastWeather extends Component {
   }
 
   render() {
-    const { isFetchingForecast, forecast, reducedForecast } = this.props.weather
+    const { isFetchingForecast, isServerError, forecast, reducedForecast } = this.props.weather
     window.reducedForecast = reducedForecast
 
     const dayForecastBlock = reducedForecast && reducedForecast.map( (item, index) => {
@@ -33,10 +35,13 @@ class ForecastWeather extends Component {
               <i className="fa fa-spinner fa-spin fa-5x"></i>
             </div>
           }
-          { !isFetchingForecast &&
-        <div className="forecast-weather">
-            { dayForecastBlock }
-        </div>
+          { !isFetchingForecast && isServerError &&
+            <WeatherError />
+          }
+          { !isFetchingForecast && !isServerError &&
+            <div className="forecast-weather">
+                { dayForecastBlock }
+            </div>
           }
         </div>
     )
