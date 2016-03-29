@@ -7,7 +7,9 @@ export default function ui(state = {
   lat: null,
   lon: null,
   isGeocodeFetching: false,
-  geoJson: {}
+  geoJson: {},
+  isGeocodeError: false,
+  errorMessage: null
 }, action) {
 
   switch (action.type) {
@@ -21,6 +23,13 @@ export default function ui(state = {
       return Object.assign({}, state, {
         isGeocodeFetching: false,
         geoJson: action.geoJson
+      });
+
+    case ActionTypes.RECEIVE_GEOCODE_ERROR:
+      return Object.assign({}, state, {
+        isGeocodeFetching: false,
+        isGeocodeError: true,
+        errorMessage: action.msg
       });
 
     case ActionTypes.ADD_CITY:

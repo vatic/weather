@@ -15,8 +15,6 @@ export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
 
 export const RECEIVE_WEATHER_ERROR = 'RECEIVE_WEATHER_ERROR'
 
-const API_KEY = '269c7810b0e920996f67e99515169306'
-
 /*
  * Action Creators
  */
@@ -58,6 +56,19 @@ export function getCurrentWeather(requestType) {
       url = URLS.WEATHER_BY_ID(cityId)
     }
 
+    const onsuccess = function(res) {
+      const json = JSON.parse(res.responseText)
+      dispatch(receiveCurrentWeather(json))
+        if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
+          dispatch(addCity({name: json.name, id: json.id}))
+        }
+    }
+
+    const onservererror = function(res) {
+      dispatch(receiveWeatherError(res.responseText))
+    }
+
+    /*
     const onload = function() {
       const json = JSON.parse(this.responseText)
       console.log( 'response', this);
@@ -70,10 +81,9 @@ export function getCurrentWeather(requestType) {
         dispatch(receiveWeatherError(this.responseText))
       }
     }
-    const onerror = function() {
-      alert( 'Ошибка ' + this.status );
-    }
-    xhr.get(url, onload, onerror);
+    */
+
+    xhr.get(url, onsuccess, onservererror);
   }
 
 }
@@ -99,6 +109,9 @@ export function getForecastWeather() {
 
     const URL = URLS.FORECAST_BY_ID(cityId)
 
+    const onsuccess = (res) => dispatch(receiveForecastWeather(JSON.parse(res.responseText)))
+    const onservererror = (res) => dispatch(receiveWeatherError(res.responseText))
+    /*
     const onload = function() {
       const json = JSON.parse(this.responseText)
       if (this.status >= 200 && this.status < 300) {
@@ -107,12 +120,9 @@ export function getForecastWeather() {
         dispatch(receiveWeatherError(this.responseText))
       }
     }
+    */
 
-    const onerror = function() {
-      alert( 'Ошибка ' + this.status );
-    }
-
-    xhr.get(URL, onload, onerror);
+    xhr.get(URL, onsuccess, onservererror);
   }
 
 }

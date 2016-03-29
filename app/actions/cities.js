@@ -1,6 +1,10 @@
 import { getCurrentWeather } from './weather'
 import { changeTab } from './ui'
 
+import { xhr } from '../utils/xhr'
+
+import { URLS } from '../config'
+
 /*
  * Action Types
  */
@@ -12,6 +16,7 @@ export const READ_LOCAL_STORAGE = 'READ_LOCAL_STORAGE'
 export const ADD_COORDS = 'ADD_COORDS'
 export const REQUEST_REVERSE_GEOCODE = 'REQUEST_REVERSE_GEOCODE'
 export const RECEIVE_REVERSE_GEOCODE = 'RECEIVE_REVERSE_GEOCODE'
+export const RECEIVE_GEOCODE_ERROR = 'RECEIVE_GEOCODE_ERROR'
 
 /*
  * Action Creators
@@ -31,32 +36,26 @@ function receiveReverseGeocode(geoJson) {
   }
 }
 
+function receiveGeocodeErro(msg) {
+  return {
+    type: RECEIVE_GEOCODE_ERROR,
+    msg
+  }
+}
+
 export function reverseGeocode(lat,lon) {
 
 
   return (dispatch, getState) => {
-    const NOMINATIM_URL = `http://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
 
-    const XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-    var xhr = new XHR();
 
     dispatch(requestReverseGeocode())
 
-    xhr.open('GET', NOMINATIM_URL, true);
+    const onsuccess = (res) => dispatch(dispatch(receiveReverseGeocode(JSON.parse(res.responseText))))
+    const onservererror = (res) => dispatch(receiveGeocodeErro(res.statusText))
 
-    xhr.onload = function() {
-      const json = JSON.parse(this.responseText)
-      // for debug set timeout to see spinner
-      setTimeout( () =>
-        dispatch(receiveReverseGeocode(json))
-      , 1000)
-    }
+    xhr.get(URLS.NOMINATIM_URL(lat, lon), onsuccess, onservererror);
 
-    xhr.onerror = function() {
-      alert( 'Ошибка ' + this.status );
-    }
-
-    xhr.send();
   }
 
 }

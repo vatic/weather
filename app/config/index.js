@@ -14,6 +14,8 @@ export const URLS = {
 
   WEATHER_BY_COORDS: (lat, lon) =>  `${OWM_BASE_URL}weather?lat=${lat}&lon=${lon}&appid=${API_KEYS.OWM}&${OWM_UNITS}`,
 
-  FORECAST_BY_ID: (cityId) => `${OWM_BASE_URL}forecast?id=${cityId}&appid=${API_KEYS.OWM}&${OWM_UNITS}`
+  FORECAST_BY_ID: (cityId) => `${OWM_BASE_URL}forecast?id=${cityId}&appid=${API_KEYS.OWM}&${OWM_UNITS}`,
+
+  NOMINATIM_URL: (lat, lon) => `http://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
 
 }
