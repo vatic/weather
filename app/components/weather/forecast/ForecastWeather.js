@@ -7,7 +7,7 @@ import WeatherError from '../../errors/WeatherError'
 
 import ForecastItem from './ForecastItem'
 
-class ForecastWeather extends Component {
+export default class ForecastWeather extends Component {
 
   constructor(props) {
     super(props)
@@ -47,14 +47,4 @@ class ForecastWeather extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  const { weather } = state
-
-  return {
-    weather
-  }
-}
-
-export default connect(mapStateToProps)(ForecastWeather)
 

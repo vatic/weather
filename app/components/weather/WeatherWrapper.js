@@ -33,10 +33,10 @@ export default class CitySearch extends Component {
           </li>
         </ul>
             {this.props.ui.currentTab === 'CURRENT' &&
-              <CurrentWeather />
+              <CurrentWeather {...this.props} />
             }
             {this.props.ui.currentTab === 'FORECAST' &&
-              <ForecastWeather />
+              <ForecastWeather {...this.props} />
             }
       </div>
     )

@@ -21,7 +21,7 @@ class App extends Component {
     return (
 
       <div id="wth_main">
-        <NavbarMain />
+        <NavbarMain {...this.props} />
         <div className="container-fluid">
           <div className="row current-location-wrapper">
             <CurrentLocation {...this.props} />
@@ -38,11 +38,12 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { ui, cities } = state
+  const { ui, cities, weather} = state
 
   return {
     ui,
-    cities
+    cities,
+    weather
   }
 }
 
