@@ -1,8 +1,8 @@
 import * as ActionTypes from '../actions/cities'
 
 export default function ui(state = {
-  list: [{name: 'Saint Petersburg', id: 498817}],
-  current: {name: 'Saint Petersburg', id: 498817},
+  list: [],
+  current: null,
   savedCitiesValid: false,
   lat: null,
   lon: null,
@@ -49,7 +49,6 @@ export default function ui(state = {
 
     case ActionTypes.REMOVE_CITY:
       const index = state.list.findIndex( (el, index, arr) => (el.id === action.city.id && el.name === action.city.name))
-      console.log('index',index)
 
       return Object.assign({}, state, {
         list: [
@@ -74,7 +73,8 @@ export default function ui(state = {
     case ActionTypes.READ_LOCAL_STORAGE:
       const cities = JSON.parse(localStorage.getItem('cities', JSON.stringify(state.list))) || state.list
       return Object.assign({}, state, {
-        list: cities
+        list: cities,
+        current: cities[0]
       });
 
     default:

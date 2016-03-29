@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 export default class CurrentLocation extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { geoJson, isGeocodeFetching, isGeocodeError, errorMessage } = this.props.cities;
 

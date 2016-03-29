@@ -41,7 +41,6 @@ export default function weather(state = {
 
     case ActionTypes.RECEIVE_FORECAST_WEATHER:
       const reducedForecast = reduceArrayByEqualKeys(action.forecastWeatherData, 'dt', (dt) => (new Date(dt*1000)).getDate() )
-      console.log('reduced',reducedForecast)
       return Object.assign({}, state, {
         isFetchingForecast: false,
         forecast: action.forecastWeatherData,

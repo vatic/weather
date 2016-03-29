@@ -19,3 +19,7 @@ export const URLS = {
   NOMINATIM_URL: (lat, lon) => `http://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
 
 }
+
+export const CITIES = {
+  DEFAULT: {name: 'Saint Petersburg', id: 498817}
+}

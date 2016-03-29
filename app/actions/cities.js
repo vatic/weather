@@ -3,7 +3,7 @@ import { changeTab } from './ui'
 
 import { xhr } from '../utils/xhr'
 
-import { URLS } from '../config'
+import { URLS, CITIES } from '../config'
 
 /*
  * Action Types
@@ -70,7 +70,8 @@ export function promptUserLocation() {
       dispatch(reverseGeocode(latitude, longitude))
     }, (error) => {
       console.log('get location denied', error);
-      dispatch(changeCurrentCityAndGetWeather(getState().cities.list[0]))
+      dispatch(addCity(CITIES.DEFAULT))
+      dispatch(changeCurrentCityAndGetWeather(CITIES.DEFAULT))
     });
   }
 }

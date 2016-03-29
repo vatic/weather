@@ -42,7 +42,7 @@ export function getCurrentWeather(requestType) {
 
   return (dispatch, getState) => {
     const city = getState().ui.currentCitySearchInputValue;
-    const cityId = getState().cities.current.id
+    const cityId = getState().cities.current && getState().cities.current.id
     const {lat, lon} = getState().cities
     let url;
 
@@ -67,21 +67,6 @@ export function getCurrentWeather(requestType) {
     const onservererror = function(res) {
       dispatch(receiveWeatherError(res.responseText))
     }
-
-    /*
-    const onload = function() {
-      const json = JSON.parse(this.responseText)
-      console.log( 'response', this);
-      if (this.status >= 200 && this.status < 300) {
-        dispatch(receiveCurrentWeather(json))
-        if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
-          dispatch(addCity({name: json.name, id: json.id}))
-        }
-      } else {
-        dispatch(receiveWeatherError(this.responseText))
-      }
-    }
-    */
 
     xhr.get(url, onsuccess, onservererror);
   }
@@ -111,16 +96,6 @@ export function getForecastWeather() {
 
     const onsuccess = (res) => dispatch(receiveForecastWeather(JSON.parse(res.responseText)))
     const onservererror = (res) => dispatch(receiveWeatherError(res.responseText))
-    /*
-    const onload = function() {
-      const json = JSON.parse(this.responseText)
-      if (this.status >= 200 && this.status < 300) {
-        dispatch(receiveForecastWeather(json))
-      } else {
-        dispatch(receiveWeatherError(this.responseText))
-      }
-    }
-    */
 
     xhr.get(URL, onsuccess, onservererror);
   }
