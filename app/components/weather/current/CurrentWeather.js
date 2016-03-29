@@ -16,23 +16,23 @@ export default class CurrentWeather extends Component {
     const { wind, weatherDesc } = this.props.weather
     const tableRows = [
       [
-        ['Temperature:', <strong>{temp} {String.fromCharCode(0x00B0)}C</strong>],
-        ['Description: ', <strong>{weatherDesc.description}</strong>],
+        <span key={'temp1'}>Temperature: <strong key>{temp} {String.fromCharCode(0x00B0)}C</strong></span>,
+          <span key={'desc1'}>'Description: ', <strong>{weatherDesc.description}</strong></span>,
       ],
       [
-        ['Humidity: ', <strong>{humidity} %</strong>],
-        ['Wind degree :', <strong>{Math.round(wind.deg)} {String.fromCharCode(0x00B0)}</strong>]
+        <span key={'hum1'}>'Humidity: ', <strong>{humidity} %</strong></span>,
+          <span key={'deg1'}>Wind degree: ', <strong>{Math.round(wind.deg)} {String.fromCharCode(0x00B0)}</strong></span>
       ],
       [
-        ['Pressure: ', <strong>{ Math.round(pressure * hpaToAtm) } mm Hg</strong>],
-        ['Wind speed: ', <strong>{wind.speed} m/sec</strong>]
+        <span key={'pres1'}>Pressure: ', <strong>{ Math.round(pressure * hpaToAtm) } mm Hg</strong></span>,
+        <span key={'speed1'}>Wind speed: ', <strong>{wind.speed} m/sec</strong></span>
       ]
     ];
     const tBody = tableRows.map( (row, index) => {
       return (
         <tr key={index}>
-          <td>{row[0]}</td>
-          <td>{ row [1]}</td>
+          <td key="current_0">{row[0]}</td>
+          <td key="current_1">{ row [1]}</td>
         </tr>
       )
     })
