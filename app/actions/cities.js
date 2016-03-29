@@ -103,6 +103,7 @@ export function addCity(city) {
     if ( getState().cities.list.map( c => c.id ).indexOf(city.id) === -1 ) {
       dispatch(addCityToState(city))
       dispatch(updateLocalStorage())
+      dispatch(changeTab('CURRENT'))
     }
   }
 }
