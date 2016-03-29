@@ -9,10 +9,6 @@ import { changeCurrentCityAndGetWeather } from '../../../actions/cities'
 
 class CurrentWeather extends Component {
 
-  componentDidMount() {
-    this.props.dispatch(changeCurrentCityAndGetWeather(this.props.cities.current))
-  }
-
   render() {
     const hpaToAtm = 0.750062
     const { currentCity, isFetchingCurrent, isServerError } = this.props.weather 

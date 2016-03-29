@@ -15,8 +15,6 @@ export const RECEIVE_FORECAST_WEATHER = 'RECEIVE_FORECAST_WEATHER'
 
 export const RECEIVE_WEATHER_ERROR = 'RECEIVE_WEATHER_ERROR'
 
-const API_KEY = '269c7810b0e920996f67e99515169306'
-
 /*
  * Action Creators
  */
@@ -44,7 +42,7 @@ export function getCurrentWeather(requestType) {
 
   return (dispatch, getState) => {
     const city = getState().ui.currentCitySearchInputValue;
-    const cityId = getState().cities.current.id
+    const cityId = getState().cities.current && getState().cities.current.id
     const {lat, lon} = getState().cities
     let url;
 
@@ -58,22 +56,19 @@ export function getCurrentWeather(requestType) {
       url = URLS.WEATHER_BY_ID(cityId)
     }
 
-    const onload = function() {
-      const json = JSON.parse(this.responseText)
-      console.log( 'response', this);
-      if (this.status >= 200 && this.status < 300) {
-        dispatch(receiveCurrentWeather(json))
+    const onsuccess = function(res) {
+      const json = JSON.parse(res.responseText)
+      dispatch(receiveCurrentWeather(json))
         if (requestType === 'BY_CITY_NAME' || requestType === 'BY_COORDS') {
           dispatch(addCity({name: json.name, id: json.id}))
         }
-      } else {
-        dispatch(receiveWeatherError(this.responseText))
-      }
     }
-    const onerror = function() {
-      alert( 'Ошибка ' + this.status );
+
+    const onservererror = function(res) {
+      dispatch(receiveWeatherError(res.responseText))
     }
-    xhr.get(url, onload, onerror);
+
+    xhr.get(url, onsuccess, onservererror);
   }
 
 }
@@ -99,20 +94,10 @@ export function getForecastWeather() {
 
     const URL = URLS.FORECAST_BY_ID(cityId)
 
-    const onload = function() {
-      const json = JSON.parse(this.responseText)
-      if (this.status >= 200 && this.status < 300) {
-        dispatch(receiveForecastWeather(json))
-      } else {
-        dispatch(receiveWeatherError(this.responseText))
-      }
-    }
+    const onsuccess = (res) => dispatch(receiveForecastWeather(JSON.parse(res.responseText)))
+    const onservererror = (res) => dispatch(receiveWeatherError(res.responseText))
 
-    const onerror = function() {
-      alert( 'Ошибка ' + this.status );
-    }
-
-    xhr.get(URL, onload, onerror);
+    xhr.get(URL, onsuccess, onservererror);
   }
 
 }
