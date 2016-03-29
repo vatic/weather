@@ -20,7 +20,7 @@ export default class CurrentWeather extends Component {
           <span key={'desc1'}>Description: <strong>{weatherDesc.description}</strong></span>,
       ],
       [
-        <span key={'hum1'}>'Humidity: <strong>{humidity} %</strong></span>,
+        <span key={'hum1'}>Humidity: <strong>{humidity} %</strong></span>,
           <span key={'deg1'}>Wind degree: <strong>{Math.round(wind.deg)} {String.fromCharCode(0x00B0)}</strong></span>
       ],
       [
