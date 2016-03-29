@@ -36,7 +36,7 @@ function receiveReverseGeocode(geoJson) {
   }
 }
 
-function receiveGeocodeErro(msg) {
+function receiveGeocodeError(msg) {
   return {
     type: RECEIVE_GEOCODE_ERROR,
     msg
@@ -52,7 +52,7 @@ export function reverseGeocode(lat,lon) {
     dispatch(requestReverseGeocode())
 
     const onsuccess = (res) => dispatch(dispatch(receiveReverseGeocode(JSON.parse(res.responseText))))
-    const onservererror = (res) => dispatch(receiveGeocodeErro(res.statusText))
+    const onservererror = (res) => dispatch(receiveGeocodeError(res.statusText))
 
     xhr.get(URLS.NOMINATIM_URL(lat, lon), onsuccess, onservererror);
 
