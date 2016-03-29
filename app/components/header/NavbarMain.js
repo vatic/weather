@@ -16,7 +16,8 @@ export default class NavbarMain extends Component {
             <a className="navbar-brand" href="#">Weather</a>
           </div>
           <div className="col-md-9 navbar-header">
-            <form className="navbar-form navbar-left city-search-form" role="search" onSubmit={ e => { e.preventDefault(); dispatch(getCurrentWeather('BY_CITY_NAME')) }}
+            <form className="navbar-form navbar-left city-search-form" role="search"
+              onSubmit={ e => { e.preventDefault(); dispatch(getCurrentWeather('BY_CITY_NAME')) }}
             >
             <div className="form-group">
               <input type="text" className="form-control city-search-input" placeholder="Search"
@@ -24,10 +25,7 @@ export default class NavbarMain extends Component {
                 onChange={ e => dispatch(citySearchInputChange(e.target.value))}
               />
             </div>
-            <button className="btn btn-default">
-            
-              Submit
-            </button>
+            <button className="btn btn-default">Submit</button>
           </form>
           </div>
         </div>
@@ -37,14 +35,4 @@ export default class NavbarMain extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  const { ui } = state
-
-  return {
-    ui
-  }
-}
-
-export default connect(mapStateToProps)(NavbarMain)
 

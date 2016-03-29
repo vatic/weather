@@ -7,33 +7,34 @@ import { getCurrentWeather } from '../../../actions/weather'
 import { changeCurrentCityAndGetWeather } from '../../../actions/cities'
 
 
-export default class CurrentWeather extends Component {
+class CurrentWeather extends Component {
 
   render() {
     const hpaToAtm = 0.750062
     const { currentCity, isFetchingCurrent, isServerError } = this.props.weather 
     const { humidity, pressure, temp } = this.props.weather.mainWeatherValues
     const { wind, weatherDesc } = this.props.weather
+    const percentSign = '&#37'
     const tableRows = [
       [
-        ['Temperature:', <strong>{temp} {String.fromCharCode(0x00B0)}C</strong>],
-        ['Description: ', <strong>{weatherDesc.description}</strong>],
+                  `Temperature: ${temp} ${String.fromCharCode(0x00B0)}C`,
+                  `${weatherDesc.description}`,
       ],
       [
-        ['Humidity: ', <strong>{humidity} %</strong>],
-        ['Wind degree :', <strong>{Math.round(wind.deg)} {String.fromCharCode(0x00B0)}</strong>]
+                  `Humidity: ${humidity} %`,
+                  `Wind degree: ${wind.deg} ${String.fromCharCode(0x00B0)}`
       ],
       [
-        ['Pressure: ', <strong>{ Math.round(pressure * hpaToAtm) } mm Hg</strong>],
-        ['Wind speed: ', <strong>{wind.speed} m/sec</strong>]
+                  `Pressure: ${ Math.round(pressure * hpaToAtm) } mm Hg`,
+                  `Wind speed: ${wind.speed} m/sec`
       ]
     ];
-    const tBody = tableRows.map( (row, index) => {
+    const tBody = tableRows.map( (row) => {
       return (
-        <tr key={index}>
-          <td>{row[0]}</td>
-          <td>{ row [1]}</td>
-        </tr>
+                <tr>
+                  <td>{row[0]}</td>
+                  <td>{ row [1]}</td>
+                </tr>
       )
     })
 
@@ -49,9 +50,7 @@ export default class CurrentWeather extends Component {
         }
         { !isFetchingCurrent && !isServerError &&
           <div className="current-weather">
-            <div className="panel-heading">
-              <strong>{this.props.weather.currentCity}</strong>
-            </div>
+            <div className="panel-heading">{this.props.weather.currentCity}</div>
             <table className="table">
               <tbody>
                 { tBody}
@@ -64,5 +63,14 @@ export default class CurrentWeather extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  const { weather, cities } = state
 
+  return {
+    weather,
+    cities
+  }
+}
+
+export default connect(mapStateToProps)(CurrentWeather)
 

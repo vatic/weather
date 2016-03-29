@@ -6,6 +6,8 @@ export default function weather(state = {
   isFetchingForecast: false,
   currentCity: null,
   mainWeatherValues: {},
+  wind: {},
+  weatherDesc: {},
   forecast: [],
   isServerError: false,
   isNetworkError: false,
@@ -23,7 +25,9 @@ export default function weather(state = {
       return Object.assign({}, state, {
         isFetchingCurrent: false,
         currentCity: action.currentWeatherData.name,
-        mainWeatherValues: action.currentWeatherData.main
+        mainWeatherValues: action.currentWeatherData.main,
+        wind: action.currentWeatherData.wind,
+        weatherDesc: action.currentWeatherData.weather[0]
       });
 
     case ActionTypes.RECEIVE_WEATHER_ERROR:
